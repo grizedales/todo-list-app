@@ -1,0 +1,539 @@
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2ecc71;
+    --background-color: #f5f7fa;
+    --container-background: #ffffff;
+    --task-background: #ffffff;
+    --text-color: #34495e;
+    --border-color: #e0e0e0;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --button-text-color: #ffffff;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 800px;
+    margin: 40px auto;
+    background-color: var(--container-background);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px var(--shadow-color);
+}
+
+h1 {
+    text-align: center;
+    color: #2c3e50; /* A neutral dark color for light mode */
+    margin-bottom: 30px;
+    font-weight: 300;
+    font-size: 2.5em;
+}
+
+.input-container {
+    display: flex;
+    margin-bottom: 30px;
+    align-items: stretch;
+}
+
+.input-wrapper {
+    position: relative;
+    flex-grow: 1;
+}
+
+#taskInput {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 2px solid var(--border-color);
+    border-radius: 5px 0 0 5px;
+    transition: border-color 0.3s ease;
+    height: 48px;
+    box-sizing: border-box;
+}
+
+#taskInput:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.error-message {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #e74c3c;
+    font-size: 14px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+#taskInput:placeholder-shown + .error-message {
+    opacity: 0;
+}
+
+#taskInput:not(:placeholder-shown) + .error-message {
+    opacity: 1;
+}
+
+#addTask {
+    padding: 12px 20px;
+    font-size: 16px;
+    background-color: var(--primary-color);
+    color: var(--button-text-color);
+    border: none;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 100px;
+    flex-shrink: 0;
+    height: 48px;
+    line-height: 24px;
+}
+
+#addTask:hover {
+    background-color: #2980b9;
+}
+
+#addTask:active {
+    transform: scale(0.98);
+}
+
+#taskList,
+.subtask-list {
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+#taskList li,
+.subtask-list li {
+    margin-bottom: 10px;
+    padding: 0;
+}
+
+.subtask-list {
+    margin-top: 10px;
+    margin-left: 20px; /* This creates indentation for subtasks */
+}
+
+.task-content {
+    background-color: var(--task-background);
+    padding: 15px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 5px var(--shadow-color);
+    transition: box-shadow 0.3s ease;
+    min-height: 24px; /* Add this line */
+}
+
+.task-content:hover {
+    box-shadow: 0 5px 15px var(--shadow-color);
+}
+
+.task-content input[type="checkbox"] {
+    margin-right: 15px;
+    transform: scale(1.2);
+}
+
+.task-content span,
+.edit-input {
+    flex-grow: 1;
+    font-size: 16px;
+    line-height: 24px; /* Add this line */
+    margin: 0; /* Add this line */
+    padding: 0; /* Add this line */
+}
+
+.task-content span.completed {
+    text-decoration: line-through;
+    color: #95a5a6;
+}
+
+.task-actions {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.priority-select, .edit-task, .add-subtask, .remove-task {
+    padding: 3px 6px;
+    margin-left: 5px;
+    font-size: 12px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.priority-select {
+    width: 60px;
+    order: 1;
+}
+
+.edit-task {
+    order: 2;
+}
+
+.add-subtask {
+    order: 3;
+}
+
+.remove-task {
+    order: 4;
+}
+
+.subtask-list {
+    list-style-type: none;
+    padding-left: 20px;
+    margin-top: 10px;
+}
+
+.subtask-list li {
+    margin-bottom: 10px;
+}
+
+.subtask-input, .edit-input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-top: 10px;
+    font-size: 14px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    background-color: var(--task-background);
+    color: var(--text-color);
+    transition: border-color 0.3s ease;
+}
+
+.subtask-add-button, .subtask-cancel-button {
+    padding: 8px 15px;
+    margin-top: 10px;
+    margin-right: 10px;
+    font-size: 14px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.subtask-add-button {
+    background-color: var(--secondary-color);
+    color: var(--button-text-color);
+}
+
+.subtask-cancel-button {
+    background-color: #e74c3c;
+    color: var(--button-text-color);
+}
+
+.dark-mode-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+}
+
+#modeText {
+    margin-right: 10px;
+    font-size: 14px;
+}
+
+.dark-mode-input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.dark-mode-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    width: 50px;
+    height: 25px;
+    background-color: #ddd;
+    border-radius: 100px;
+    position: relative;
+    transition: background-color 0.2s;
+}
+
+.dark-mode-label::before {
+    content: "";
+    width: 21px;
+    height: 21px;
+    border-radius: 50%;
+    background-color: #fff;
+    position: absolute;
+    left: 2px;
+    transition: 0.2s;
+}
+
+.dark-mode-input:checked + .dark-mode-label {
+    background-color: var(--primary-color);
+}
+
+.dark-mode-input:checked + .dark-mode-label::before {
+    left: calc(100% - 2px);
+    transform: translateX(-100%);
+}
+
+/* Priority colors */
+.priority-low {
+    border-left: 5px solid #2ecc71;
+}
+
+.priority-medium {
+    border-left: 5px solid #f1c40f;
+}
+
+.priority-high {
+    border-left: 5px solid #e74c3c;
+}
+
+/* Dark mode styles */
+body.dark-mode {
+    --background-color: #2c3e50;
+    --container-background: #34495e;
+    --task-background: #2c3e50;
+    --text-color: #ecf0f1;
+    --border-color: #34495e;
+    --shadow-color: rgba(0, 0, 0, 0.2);
+    --button-text-color: #ecf0f1;
+    --button-background: #3a546d;
+}
+
+body.dark-mode .container {
+    background-color: var(--container-background);
+}
+
+body.dark-mode #taskInput {
+    background-color: var(--task-background);
+    color: var(--text-color);
+    border-color: #4a6278;
+}
+
+body.dark-mode .task-content {
+    background-color: var(--task-background);
+}
+
+body.dark-mode .task-content span.completed {
+    color: #7f8c8d;
+}
+
+body.dark-mode .priority-select,
+body.dark-mode .edit-task,
+body.dark-mode .remove-task,
+body.dark-mode .add-subtask,
+body.dark-mode #addTask,
+body.dark-mode .save-edit,
+body.dark-mode .cancel-edit,
+body.dark-mode .subtask-add-button,
+body.dark-mode .subtask-cancel-button {
+    background-color: var(--button-background);
+    color: var(--button-text-color);
+}
+
+body.dark-mode #addTask:hover,
+body.dark-mode .priority-select:hover,
+body.dark-mode .edit-task:hover,
+body.dark-mode .remove-task:hover,
+body.dark-mode .add-subtask:hover,
+body.dark-mode .save-edit:hover,
+body.dark-mode .cancel-edit:hover,
+body.dark-mode .subtask-add-button:hover,
+body.dark-mode .subtask-cancel-button:hover {
+    background-color: #4a6278;
+}
+
+body.dark-mode h1 {
+    color: #bdc3c7; /* A neutral light color for dark mode */
+}
+
+.edit-input {
+    flex-grow: 1;
+    margin-right: 10px;
+    padding: 5px;
+    font-size: 16px; /* Match this with the task text font size */
+    border: 1px solid var(--border-color);
+    border-radius: 3px;
+    background-color: var(--task-background);
+    color: var(--text-color);
+    height: 24px; /* Match the height of the span */
+    box-sizing: border-box; /* Add this line */
+}
+
+.save-edit, .cancel-edit {
+    padding: 3px 6px; /* Reduce padding to match other buttons */
+    margin-left: 5px;
+    font-size: 12px; /* Reduce font size to match other buttons */
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.save-edit {
+    background-color: var(--secondary-color);
+    color: var(--button-text-color);
+}
+
+.cancel-edit {
+    background-color: #e74c3c;
+    color: var(--button-text-color);
+}
+
+body.dark-mode .subtask-input,
+body.dark-mode .edit-input {
+    background-color: var(--task-background);
+    color: var(--text-color);
+    border-color: var(--border-color);
+}
+
+/* Remove focus outline for all input fields and buttons */
+input:focus,
+button:focus,
+select:focus {
+    outline: none;
+}
+
+/* Style for input fields in both light and dark modes */
+#taskInput,
+.subtask-input,
+.edit-input {
+    border: 1px solid var(--border-color);
+    transition: border-color 0.3s ease;
+}
+
+/* Hover and focus styles for input fields */
+#taskInput:hover,
+.subtask-input:hover,
+.edit-input:hover,
+#taskInput:focus,
+.subtask-input:focus,
+.edit-input:focus {
+    border-color: var(--primary-color);
+}
+
+/* Dark mode specific styles for input fields */
+body.dark-mode #taskInput,
+body.dark-mode .subtask-input,
+body.dark-mode .edit-input {
+    border-color: var(--border-color);
+}
+
+body.dark-mode #taskInput:hover,
+body.dark-mode .subtask-input:hover,
+body.dark-mode .edit-input:hover,
+body.dark-mode #taskInput:focus,
+body.dark-mode .subtask-input:focus,
+body.dark-mode .edit-input:focus {
+    border-color: var(--primary-color);
+}
+
+/* Add these rules to completely remove bullet points */
+ul, li {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#taskList,
+.subtask-list {
+    padding-left: 0;
+    margin: 0;
+}
+
+.subtask-list {
+    margin-top: 10px;
+    margin-left: 20px; /* This creates indentation for subtasks */
+}
+
+/* Ensure no default styles are applied to list items */
+#taskList li,
+.subtask-list li {
+    margin-bottom: 10px;
+    padding: 0;
+}
+
+/* Add these rules at the end of your CSS file */
+
+/* Remove all list styles */
+ul, ol, li {
+    list-style: none;
+    list-style-type: none;
+    list-style-image: none;
+    list-style-position: outside;
+}
+
+/* Reset padding and margin for lists and list items */
+ul, ol, li {
+    padding: 0;
+    margin: 0;
+}
+
+/* Specific styles for task list and subtask list */
+#taskList,
+.subtask-list,
+#taskList li,
+.subtask-list li {
+    list-style: none;
+    list-style-type: none;
+    padding-left: 0;
+    margin-left: 0;
+}
+
+/* Maintain indentation for subtasks */
+.subtask-list {
+    margin-left: 20px;
+}
+
+/* Ensure no default browser styles are applied */
+* {
+    -webkit-padding-start: 0;
+    -moz-padding-start: 0;
+}
+
+/* Firefox-specific styles */
+@-moz-document url-prefix() {
+    ul, ol, li,
+    #taskList,
+    .subtask-list,
+    #taskList li,
+    .subtask-list li {
+        list-style-type: none !important;
+        -moz-list-style-type: none !important;
+    }
+}
+
+/* Additional universal reset */
+ul, ol, li,
+#taskList,
+.subtask-list,
+#taskList li,
+.subtask-list li {
+    list-style-type: none !important;
+    -webkit-list-style-type: none !important;
+    -moz-list-style-type: none !important;
+    -ms-list-style-type: none !important;
+}
+
+/* Ensure no markers are displayed */
+ul::before, ol::before, li::before,
+#taskList::before, .subtask-list::before,
+#taskList li::before, .subtask-list li::before {
+    content: none !important;
+    display: none !important;
+}
