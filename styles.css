@@ -8,6 +8,7 @@
     --border-color: #e0e0e0;
     --shadow-color: rgba(0, 0, 0, 0.1);
     --button-text-color: #ffffff;
+    --button-background: #3a546d;
 }
 
 body {
@@ -172,23 +173,67 @@ h1 {
     padding: 3px 6px;
     margin-left: 5px;
     font-size: 12px;
-    border: none;
+    border: 1px solid var(--border-color); /* Add this line */
     border-radius: 3px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    background-color: var(--task-background);
+    color: var(--text-color);
+}
+
+.priority-select:hover, .edit-task:hover, .remove-task:hover, .add-subtask:hover {
+    background-color: var(--border-color);
 }
 
 .priority-select {
     width: 60px;
     order: 1;
+    -webkit-appearance: none;  /* Remove default arrow for webkit browsers */
+    -moz-appearance: none;     /* Remove default arrow for Mozilla */
+    appearance: none;          /* Remove default arrow */
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%23000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+    background-repeat: no-repeat;
+    background-position-x: 100%;
+    background-position-y: 50%;
+    padding-right: 20px;  /* Add some padding for the custom arrow */
+}
+
+/* Dark mode styles for priority select */
+body.dark-mode .priority-select {
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%23ffffff" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
 }
 
 .edit-task {
     order: 2;
+    color: var(--text-color);
+    background-color: var(--task-background);
 }
 
 .add-subtask {
     order: 3;
+    background-color: var(--primary-color);
+    color: white; /* Changed to white */
+    border: none;
+    padding: 3px 6px;
+    font-size: 12px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-subtask:hover {
+    background-color: #2980b9; /* Darker shade of primary color */
+}
+
+/* Dark mode styles for add-subtask button */
+body.dark-mode .add-subtask {
+    background-color: var(--button-background);
+    color: white; /* Ensure it's white in dark mode too */
+    border-color: var(--border-color);
+}
+
+body.dark-mode .add-subtask:hover {
+    background-color: #4a6278; /* Lighter shade of button background */
 }
 
 .remove-task {
@@ -226,6 +271,11 @@ h1 {
     border-radius: 3px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+}
+
+/* Add this new rule for padding below the buttons */
+.subtask-buttons {
+    padding-bottom: 15px; /* Adjust this value as needed */
 }
 
 .subtask-add-button {
@@ -311,8 +361,8 @@ body.dark-mode {
     --text-color: #ecf0f1;
     --border-color: #34495e;
     --shadow-color: rgba(0, 0, 0, 0.2);
-    --button-text-color: #ecf0f1;
-    --button-background: #3a546d;
+    --button-text-color: #ecf0f1; /* This should be a light color */
+    --button-background: #3a546d; /* This should be a dark color */
 }
 
 body.dark-mode .container {
@@ -346,11 +396,11 @@ body.dark-mode .subtask-cancel-button {
     color: var(--button-text-color);
 }
 
-body.dark-mode #addTask:hover,
 body.dark-mode .priority-select:hover,
 body.dark-mode .edit-task:hover,
 body.dark-mode .remove-task:hover,
 body.dark-mode .add-subtask:hover,
+body.dark-mode #addTask:hover,
 body.dark-mode .save-edit:hover,
 body.dark-mode .cancel-edit:hover,
 body.dark-mode .subtask-add-button:hover,
@@ -471,7 +521,11 @@ ul, li {
 /* Add these rules at the end of your CSS file */
 
 /* Remove all list styles */
-ul, ol, li {
+ul, ol, li,
+#taskList,
+.subtask-list,
+#taskList li,
+.subtask-list li {
     list-style: none;
     list-style-type: none;
     list-style-image: none;
@@ -479,7 +533,11 @@ ul, ol, li {
 }
 
 /* Reset padding and margin for lists and list items */
-ul, ol, li {
+ul, ol, li,
+#taskList,
+.subtask-list,
+#taskList li,
+.subtask-list li {
     padding: 0;
     margin: 0;
 }
@@ -536,4 +594,255 @@ ul::before, ol::before, li::before,
 #taskList li::before, .subtask-list li::before {
     content: none !important;
     display: none !important;
+}
+
+.project-selection {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+}
+
+#projectSelect {
+    flex-grow: 1;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    background-color: var(--task-background);
+    color: var(--text-color);
+    margin-right: 10px;
+}
+
+#addProject, #deleteProject {
+    padding: 10px;
+    font-size: 16px;
+    background-color: var(--primary-color);
+    color: var(--button-text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#addProject:hover, #deleteProject:hover {
+    background-color: #2980b9; /* Darker shade of primary color */
+}
+
+#deleteProject {
+    margin-right: 10px;
+}
+
+.new-project-input {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.new-project-input input {
+    flex-grow: 1;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    background-color: var(--task-background);
+    color: var(--text-color);
+    margin-right: 10px;
+}
+
+.new-project-input button {
+    padding: 10px;
+    font-size: 16px;
+    background-color: var(--task-background);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.new-project-input button:hover {
+    background-color: var(--border-color);
+}
+
+/* Dark mode styles */
+body.dark-mode #projectSelect,
+body.dark-mode #addProject,
+body.dark-mode #deleteProject,
+body.dark-mode .new-project-input input,
+body.dark-mode .new-project-input button {
+    background-color: var(--task-background);
+    color: var(--text-color);
+    border-color: var(--border-color);
+}
+
+body.dark-mode #addProject:hover,
+body.dark-mode #deleteProject:hover,
+body.dark-mode .new-project-input button:hover {
+    background-color: var(--button-background);
+}
+
+/* Add these new styles for buttons */
+button {
+    border: 1px solid var(--border-color);
+    background-color: var(--task-background);
+    color: var(--text-color);
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: var(--border-color);
+}
+
+/* Update existing button styles */
+#addTask,
+#addProject,
+#deleteProject,
+.edit-task,
+.remove-task,
+.add-subtask,
+.save-edit,
+.cancel-edit,
+.subtask-add-button,
+.subtask-cancel-button {
+    border: 1px solid var(--border-color);
+    background-color: var(--task-background);
+    color: var(--text-color);
+}
+
+#addTask:hover,
+#addProject:hover,
+#deleteProject:hover,
+.edit-task:hover,
+.remove-task:hover,
+.add-subtask:hover,
+.save-edit:hover,
+.cancel-edit:hover,
+.subtask-add-button:hover,
+.subtask-cancel-button:hover {
+    background-color: var(--border-color);
+}
+
+/* Dark mode specific button styles */
+body.dark-mode button {
+    border-color: var(--border-color);
+    background-color: var(--button-background);
+    color: var(--button-text-color);
+}
+
+body.dark-mode button:hover {
+    background-color: #4a6278;
+}
+
+/* Add this to your existing CSS */
+#editProject {
+    padding: 10px;
+    font-size: 16px;
+    background-color: var(--task-background); /* Changed to match other buttons in light mode */
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-right: 10px;
+}
+
+#editProject:hover {
+    background-color: var(--border-color); /* Changed to match other buttons' hover effect */
+}
+
+/* Dark mode styles */
+body.dark-mode #editProject {
+    background-color: var(--button-background);
+    color: var(--button-text-color);
+    border-color: var(--border-color);
+}
+
+body.dark-mode #editProject:hover {
+    background-color: #4a6278;
+}
+
+/* Ensure consistency with other project buttons in both light and dark modes */
+#addProject,
+#deleteProject,
+#editProject {
+    background-color: var(--task-background);
+    color: var(--text-color);
+    border-color: var(--border-color);
+}
+
+#addProject:hover,
+#deleteProject:hover,
+#editProject:hover {
+    background-color: var(--border-color);
+}
+
+body.dark-mode #addProject,
+body.dark-mode #deleteProject,
+body.dark-mode #editProject {
+    background-color: var(--button-background);
+    color: var(--button-text-color);
+    border-color: var(--border-color);
+}
+
+body.dark-mode #addProject:hover,
+body.dark-mode #deleteProject:hover,
+body.dark-mode #editProject:hover {
+    background-color: #4a6278;
+}
+
+#editProject, #deleteProject {
+    margin-right: 10px;
+}
+
+#addProject {
+    margin-left: auto;
+}
+
+.edit-project-input {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.edit-project-input input {
+    flex-grow: 1;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    background-color: var(--task-background);
+    color: var(--text-color);
+    margin-right: 10px;
+}
+
+.edit-project-input button {
+    padding: 10px;
+    font-size: 16px;
+    background-color: var(--task-background);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.edit-project-input button:hover {
+    background-color: var(--border-color);
+}
+
+/* Dark mode styles */
+body.dark-mode .edit-project-input input,
+body.dark-mode .edit-project-input button {
+    background-color: var(--task-background);
+    color: var(--text-color);
+    border-color: var(--border-color);
+}
+
+body.dark-mode .edit-project-input button:hover {
+    background-color: var(--button-background);
 }
